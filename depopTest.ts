@@ -2,7 +2,7 @@ import { Builder, By, until, WebDriver } from "selenium-webdriver";
 
 async function depopTest() {
   // intitialising the driver
-  let driver: WebDriver = await new Builder().forBrowser("firefox").build();
+  let driver: WebDriver = await new Builder().forBrowser("chrome").build();
 
   try {
     await driver.get("https://www.depop.com");
@@ -12,50 +12,55 @@ async function depopTest() {
     let searchBar = await driver.findElement(By.name("q"));
     await searchBar.sendKeys("towel t-shirt");
 
+    // Submit the search form
     await searchBar.submit();
 
+    // Wait for search results to load
     await driver.wait(
       until.elementLocated(
-        By.css(".styles__HoverOverlay-sc-4aad5806-0.jPzBwX")
+        By.css(".styles__ProductImageContainer-sc-4aad5806-3.jRkWwk")
       ),
       10000
     );
-    // Assert that results are displayed
 
-    let firstResult = await driver.findElement(
-      By.css(".styles__HoverOverlay-sc-4aad5806-0.jPzBwX")
+    // Select the first item from the search results
+    let firstItem = await driver.findElement(
+      By.css(".styles__ProductImageContainer-sc-4aad5806-3.jRkWwk")
     );
-    await firstResult.click();
+    await firstItem.click();
 
     // Wait for the item page to load
     await driver.wait(
-      until.elementLocated(By.css('button[data-testid="add-to-bag"]')),
+      until.elementLocated(By.css("CORRECT_ADD_TO_CART_BUTTON_SELECTOR")),
       10000
     );
 
     // Add item to cart
     let addToCartButton = await driver.findElement(
-      By.css("button[Add to bag]")
+      By.css("CORRECT_ADD_TO_CART_BUTTON_SELECTOR")
     );
     await addToCartButton.click();
 
     // Wait for the cart confirmation
     await driver.wait(
-      until.elementLocated(By.css(".styles__CartConfirmModal-sc-1q8ro6x-0")),
+      until.elementLocated(By.css("CORRECT_CART_CONFIRMATION_MODAL_SELECTOR")),
       10000
     );
 
     // Go to checkout
     let goToCheckoutButton = await driver.findElement(
-      By.css('.styles__CartConfirmModal-sc-1q8ro6x-0 a[href="/checkout"]')
+      By.css("CORRECT_CHECKOUT_BUTTON_SELECTOR")
     );
     await goToCheckoutButton.click();
 
     // Wait for the checkout page to load
-    await driver.wait(until.elementLocated(By.css(".checkout-content")), 10000);
+    await driver.wait(
+      until.elementLocated(By.css("CORRECT_CHECKOUT_PAGE_SELECTOR")),
+      10000
+    );
 
     // Assert that the checkout page is displayed
-    if ((await driver.getCurrentUrl()).includes("/checkout")) {
+    if (await (await driver.getCurrentUrl()).includes("/checkout")) {
       console.log("Test passed: Navigated to checkout.");
     } else {
       console.log("Test failed: Did not navigate to checkout.");
