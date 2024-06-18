@@ -1,7 +1,7 @@
 import { Builder, By, until, WebDriver } from "selenium-webdriver";
 
 async function amazonTest() {
-  let driver: WebDriver = await new Builder().forBrowser("chrome").build();
+  let driver: WebDriver = await new Builder().forBrowser("firefox").build();
 
   try {
     await driver.get("https://www.amazon.co.uk");
