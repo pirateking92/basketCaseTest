@@ -13,12 +13,17 @@ async function amazonTest() {
     await searchBar.sendKeys("nalgene");
     await searchBar.submit();
 
-    // Handle cookie consent form if present
-    try {
-      let cookieConsentButton = await driver.findElement(By.id("sp-cc-accept"));
-      await cookieConsentButton.click();
-    } catch (error) {
-      // Ignore if cookie consent form is not present
+    // divide sections into different functions to improve readability and future changes
+    async function handleCookieConsent(driver: WebDriver) {
+      try {
+        let cookieConsentButton = await driver.findElement(
+          By.id("sp-cc-accept")
+        );
+        await cookieConsentButton.click();
+      } catch (error) {
+        // add console.log
+        console.log("Cookie consent part not found, continuing.");
+      }
     }
 
     // Wait for search results to load and select the first item
