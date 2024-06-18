@@ -46,14 +46,14 @@ async function selectFirstProduct(driver: WebDriver) {
   await driver.wait(
     until.elementLocated(
       By.css(
-        "div.s-main-slot.s-result-list.s-search-results.sg-row > div[data-index='1']"
+        "div.s-main-slot.s-result-list.s-search-results.sg-row > div[data-index='3']"
       )
     ),
     10000
   );
   let firstItem = await driver.findElement(
     By.css(
-      "div.s-main-slot.s-result-list.s-search-results.sg-row > div[data-index='1']"
+      "div.s-main-slot.s-result-list.s-search-results.sg-row > div[data-index='3']"
     )
   );
   await firstItem.click();
