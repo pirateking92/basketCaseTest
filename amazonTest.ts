@@ -1,7 +1,7 @@
 import { Builder, By, until, WebDriver } from "selenium-webdriver";
 
 async function amazonTest() {
-  // Initializing the driver
+  // Initialising the driver
   let driver: WebDriver = await new Builder().forBrowser("chrome").build();
 
   try {
@@ -50,10 +50,10 @@ async function amazonTest() {
     );
     await goToCheckoutButton.click();
 
-    // Wait for the checkout page to load
+    // Would normally wait for the checkout page, but need to be signed in, so check it goes to signin
     await driver.wait(until.urlContains("/ap/signin?_"), 10000);
 
-    // Assert that the checkout page is displayed
+    // Assert that it goes to the signin page
     if (await (await driver.getCurrentUrl()).includes("/ap/signin?_")) {
       console.log("Test passed: Navigated to checkout.");
     } else {
