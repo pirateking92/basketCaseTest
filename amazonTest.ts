@@ -14,6 +14,7 @@ async function amazonTest() {
     await searchBar.submit();
 
     // divide sections into different functions to improve readability and future changes
+    // cookies function
     async function handleCookieConsent(driver: WebDriver) {
       try {
         let cookieConsentButton = await driver.findElement(
@@ -26,20 +27,21 @@ async function amazonTest() {
       }
     }
 
-    // Wait for search results to load and select the first item
-    await driver.wait(
-      until.elementLocated(
-        By.css("div.s-main-slot.s-result-list.s-search-results.sg-row > div")
-      ),
-      10000
-    );
-    let firstItem = await driver.findElement(
-      By.css(
-        "div.s-main-slot.s-result-list.s-search-results.sg-row > div[data-index='3']"
-      )
-    );
-    await firstItem.click();
-
+    // search function
+    async function searcProduct(driver: WebDriver) {
+      await driver.wait(
+        until.elementLocated(
+          By.css("div.s-main-slot.s-result-list.s-search-results.sg-row > div")
+        ),
+        10000
+      );
+      let firstItem = await driver.findElement(
+        By.css(
+          "div.s-main-slot.s-result-list.s-search-results.sg-row > div[data-index='3']"
+        )
+      );
+      await firstItem.click();
+    }
     // Wait for the item page to load and then add the item to the cart
     await driver.wait(until.elementLocated(By.id("add-to-cart-button")), 10000);
     let addToCartButton = await driver.findElement(By.id("add-to-cart-button"));
