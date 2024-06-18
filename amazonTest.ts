@@ -30,7 +30,7 @@ async function amazonTest() {
     );
     let firstItem = await driver.findElement(
       By.css(
-        "div.s-main-slot.s-result-list.s-search-results.sg-row > div[data-index='0']"
+        "div.s-main-slot.s-result-list.s-search-results.sg-row > div[data-index='3']"
       )
     );
     await firstItem.click();
