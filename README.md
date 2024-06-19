@@ -1,10 +1,11 @@
+# Automated Tests with Selenium
+
 This project demonstrates automated testing using Selenium WebDriver and TypeScript to perform actions on Amazon's website, such as searching for a product, adding it to cart, and proceeding to checkout.
-Project Structure
+
+## Project Structure
 
 The project is structured as follows:
-
 scss
-
 project-root/
 │
 ├── src/
@@ -22,40 +23,32 @@ project-root/
 ├── package.json // Project configuration and dependencies
 └── tsconfig.json // TypeScript compiler configuration
 
-Prerequisites
+## Prerequisites
 
 To run this project, ensure you have the following installed:
 
-    Node.js (with npm)
-    TypeScript (npm install -g typescript)
-    Selenium WebDriver (npm install selenium-webdriver)
+- Node.js (with npm)
+- TypeScript (`npm install -g typescript`)
+- Selenium WebDriver (`npm install selenium-webdriver`)
 
-Getting Started
+## Getting Started
 
-    Clone the repository:
+1. Clone the repository:
 
-    bash
+   ```bash
+   git clone <https://github.com/pirateking92/basketTest.git>
+   cd basketTest
+   ```
 
-git clone <https://github.com/pirateking92/basketTest.git>
-cd basketTest
+2. Install dependencies:
 
-Install dependencies:
-
-bash
-
+```bash
 npm install
+```
 
-Run the test:
+3. Run the tests:
+   - using ts-node:
 
-    Using ts-node (for TypeScript):
-
-    bash
-
+```bash
 ts-node src/testRunner.ts
-
-Compile TypeScript to JavaScript and then run (if preferred):
-
-bash
-
-npx tsc # Compile TypeScript files
-node dist/testRunner.js
+```
