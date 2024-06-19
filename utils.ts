@@ -20,3 +20,16 @@ export async function searchProduct(
   await searchBar.sendKeys(productName);
   await searchBar.submit();
 }
+
+export async function selectFirstProduct(
+  driver: WebDriver,
+  productIdentifier: string
+) {
+  await driver.wait(until.elementLocated(By.css(productIdentifier)), 10000);
+  let firstItem = await driver.findElement(
+    By.css(
+      "div.s-main-slot.s-result-list.s-search-results.sg-row > div[data-index='3']"
+    )
+  );
+  await firstItem.click();
+}

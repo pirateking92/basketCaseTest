@@ -1,5 +1,9 @@
 import { Builder, By, until, WebDriver } from "selenium-webdriver";
-import { handleCookieConsent, searchProduct } from "./utils";
+import {
+  handleCookieConsent,
+  searchProduct,
+  selectFirstProduct,
+} from "./utils";
 
 // changing the test to be encapsulated in a class
 // will make it easier to read and will make it so that
@@ -18,7 +22,10 @@ export class AmazonTest {
       // checks all functions below. much cleaner than before
       await handleCookieConsent(this.driver, "sp-cc-accept");
       await searchProduct(this.driver, "field-keywords", "nalgene");
-      await this.selectFirstProduct();
+      await selectFirstProduct(
+        this.driver,
+        "div.s-main-slot.s-result-list.s-search-results.sg-row > div[data-index='3']"
+      );
       await this.addToCart();
       await this.proceedToCheckout();
       await this.verifyCheckoutPage();
