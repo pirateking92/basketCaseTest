@@ -9,3 +9,14 @@ export async function handleCookieConsent(driver: WebDriver, idInput: string) {
     console.log("Cookie consent not found, continuing.");
   }
 }
+
+export async function searchProduct(
+  driver: WebDriver,
+  nameID: string,
+  productName: string
+) {
+  await driver.wait(until.elementLocated(By.name(nameID)), 3000);
+  let searchBar = await driver.findElement(By.name(nameID));
+  await searchBar.sendKeys(productName);
+  await searchBar.submit();
+}

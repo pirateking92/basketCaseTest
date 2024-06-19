@@ -1,5 +1,5 @@
 import { Builder, By, until, WebDriver } from "selenium-webdriver";
-import { handleCookieConsent } from "./utils";
+import { handleCookieConsent, searchProduct } from "./utils";
 
 // changing the test to be encapsulated in a class
 // will make it easier to read and will make it so that
@@ -17,7 +17,7 @@ export class AmazonTest {
 
       // checks all functions below. much cleaner than before
       await handleCookieConsent(this.driver, "sp-cc-accept");
-      await this.searchProduct("nalgene");
+      await searchProduct(this.driver, "field-keywords", "nalgene");
       await this.selectFirstProduct();
       await this.addToCart();
       await this.proceedToCheckout();
@@ -44,16 +44,16 @@ export class AmazonTest {
   //   }
   // }
 
-  // search function
-  private async searchProduct(productName: string) {
-    await this.driver.wait(
-      until.elementLocated(By.name("field-keywords")),
-      3000
-    );
-    let searchBar = await this.driver.findElement(By.name("field-keywords"));
-    await searchBar.sendKeys(productName);
-    await searchBar.submit();
-  }
+  // // search function
+  // private async searchProduct(productName: string) {
+  //   await this.driver.wait(
+  //     until.elementLocated(By.name("field-keywords")),
+  //     3000
+  //   );
+  //   let searchBar = await this.driver.findElement(By.name("field-keywords"));
+  //   await searchBar.sendKeys(productName);
+  //   await searchBar.submit();
+  // }
 
   // function for selecting first product
   private async selectFirstProduct() {
