@@ -41,7 +41,7 @@ export class AmazonTest {
   // made utils file to handle some of these functions. test still passes
 
   // divide sections into different functions to improve readability and future changes
-  // cookies function
+
   // private async handleCookieConsent(idInput: string) {
   //   try {
   //     await this.driver.wait(until.elementLocated(By.id(idInput)), 3000);
