@@ -1,4 +1,4 @@
-import { By, until, WebDriver } from "selenium-webdriver";
+import { Button, By, until, WebDriver } from "selenium-webdriver";
 
 // cookies function
 export async function handleCookieConsent(driver: WebDriver, idInput: string) {
@@ -35,6 +35,12 @@ export async function selectFirstProduct(
 export async function addToCart(driver: WebDriver, cartButtonID: string) {
   await driver.wait(until.elementLocated(By.id(cartButtonID)), 3000);
   let addToCartButton = await driver.findElement(By.id(cartButtonID));
+  await addToCartButton.click();
+}
+
+export async function buyNow(driver: WebDriver, buyNowSelector: string) {
+  await driver.wait(until.elementLocated(By.css(buyNowSelector)), 3000);
+  let addToCartButton = await driver.findElement(By.css(buyNowSelector));
   await addToCartButton.click();
 }
 

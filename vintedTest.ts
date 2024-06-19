@@ -3,9 +3,9 @@ import {
   handleCookieConsent,
   searchProduct,
   selectFirstProduct,
-  addToCart,
   proceedToCheckout,
   verifyCheckoutPage,
+  buyNow,
 } from "./utils";
 
 // changing the test to be encapsulated in a class
@@ -21,15 +21,13 @@ export class VintedTest {
   async runTest() {
     try {
       await this.driver.get("https://www.vinted.co.uk");
-
-      // checks all functions below. much cleaner than before
-      await handleCookieConsent(this.driver, "onetrust-banner-sdk");
-      await searchProduct(this.driver, "search-text", "jeans");
+      await handleCookieConsent(this.driver, "onetrust-reject-all-handler");
+      await searchProduct(this.driver, "search_text", "jeans");
       await selectFirstProduct(
         this.driver,
-        "div.s-main-slot.s-result-list.s-search-results.sg-row > div[data-index='3']"
+        "div.feed-grid__item:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > a:nth-child(3)"
       );
-      await addToCart(this.driver, "add-to-cart-button");
+      await buyNow(this.driver, "button.web_ui__Button__filled");
       await proceedToCheckout(this.driver, "proceedToRetailCheckout");
       await verifyCheckoutPage(this.driver, "/ap/signin?_");
     } catch (error) {
