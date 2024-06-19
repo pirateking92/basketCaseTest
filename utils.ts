@@ -1,5 +1,6 @@
 import { By, until, WebDriver } from "selenium-webdriver";
 
+// cookies function
 export async function handleCookieConsent(driver: WebDriver, idInput: string) {
   try {
     await driver.wait(until.elementLocated(By.id(idInput)), 3000);
@@ -10,6 +11,7 @@ export async function handleCookieConsent(driver: WebDriver, idInput: string) {
   }
 }
 
+// search product function
 export async function searchProduct(
   driver: WebDriver,
   nameID: string,
@@ -26,11 +28,7 @@ export async function selectFirstProduct(
   productIdentifier: string
 ) {
   await driver.wait(until.elementLocated(By.css(productIdentifier)), 10000);
-  let firstItem = await driver.findElement(
-    By.css(
-      "div.s-main-slot.s-result-list.s-search-results.sg-row > div[data-index='3']"
-    )
-  );
+  let firstItem = await driver.findElement(By.css(productIdentifier));
   await firstItem.click();
 }
 
