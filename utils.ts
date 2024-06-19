@@ -33,3 +33,33 @@ export async function selectFirstProduct(
   );
   await firstItem.click();
 }
+
+export async function addToCart(driver: WebDriver, cartButtonID: string) {
+  await driver.wait(until.elementLocated(By.id(cartButtonID)), 3000);
+  let addToCartButton = await driver.findElement(By.id(cartButtonID));
+  await addToCartButton.click();
+}
+
+export async function proceedToCheckout(
+  driver: WebDriver,
+  checkoutButtonName: string
+) {
+  await driver.wait(until.elementLocated(By.name(checkoutButtonName)), 3000);
+  let goToCheckoutButton = await driver.findElement(
+    By.name(checkoutButtonName)
+  );
+  await goToCheckoutButton.click();
+}
+
+export async function verifyCheckoutPage(
+  driver: WebDriver,
+  checkoutURL: string
+) {
+  await driver.wait(until.urlContains(checkoutURL), 3000);
+  let currentUrl = await driver.getCurrentUrl();
+  if (currentUrl.includes(checkoutURL)) {
+    console.log("Test passed: Navigated to checkout.");
+  } else {
+    console.log("Test failed: Did not navigate to checkout.");
+  }
+}

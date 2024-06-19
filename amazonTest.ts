@@ -3,6 +3,9 @@ import {
   handleCookieConsent,
   searchProduct,
   selectFirstProduct,
+  addToCart,
+  proceedToCheckout,
+  verifyCheckoutPage,
 } from "./utils";
 
 // changing the test to be encapsulated in a class
@@ -26,9 +29,9 @@ export class AmazonTest {
         this.driver,
         "div.s-main-slot.s-result-list.s-search-results.sg-row > div[data-index='3']"
       );
-      await this.addToCart();
-      await this.proceedToCheckout();
-      await this.verifyCheckoutPage();
+      await addToCart(this.driver, "add-to-cart-button");
+      await proceedToCheckout(this.driver, "proceedToRetailCheckout");
+      await verifyCheckoutPage(this.driver, "/ap/signin?_");
     } catch (error) {
       console.error("Test failed:", error);
     } finally {
@@ -62,58 +65,58 @@ export class AmazonTest {
   //   await searchBar.submit();
   // }
 
-  // function for selecting first product
-  private async selectFirstProduct() {
-    await this.driver.wait(
-      until.elementLocated(
-        By.css(
-          "div.s-main-slot.s-result-list.s-search-results.sg-row > div[data-index='3']"
-        )
-      ),
-      10000
-    );
-    let firstItem = await this.driver.findElement(
-      By.css(
-        "div.s-main-slot.s-result-list.s-search-results.sg-row > div[data-index='3']"
-      )
-    );
-    await firstItem.click();
-  }
+  // // function for selecting first product
+  // private async selectFirstProduct() {
+  //   await this.driver.wait(
+  //     until.elementLocated(
+  //       By.css(
+  //         "div.s-main-slot.s-result-list.s-search-results.sg-row > div[data-index='3']"
+  //       )
+  //     ),
+  //     10000
+  //   );
+  //   let firstItem = await this.driver.findElement(
+  //     By.css(
+  //       "div.s-main-slot.s-result-list.s-search-results.sg-row > div[data-index='3']"
+  //     )
+  //   );
+  //   await firstItem.click();
+  // }
 
-  // add to cart function. will press the add to cart button
-  private async addToCart() {
-    await this.driver.wait(
-      until.elementLocated(By.id("add-to-cart-button")),
-      3000
-    );
-    let addToCartButton = await this.driver.findElement(
-      By.id("add-to-cart-button")
-    );
-    await addToCartButton.click();
-  }
+  // // add to cart function. will press the add to cart button
+  // private async addToCart() {
+  //   await this.driver.wait(
+  //     until.elementLocated(By.id("add-to-cart-button")),
+  //     3000
+  //   );
+  //   let addToCartButton = await this.driver.findElement(
+  //     By.id("add-to-cart-button")
+  //   );
+  //   await addToCartButton.click();
+  // }
 
-  // proceed to checkout, will press the proceed to checkout button
-  private async proceedToCheckout() {
-    await this.driver.wait(
-      until.elementLocated(By.name("proceedToRetailCheckout")),
-      3000
-    );
-    let goToCheckoutButton = await this.driver.findElement(
-      By.name("proceedToRetailCheckout")
-    );
-    await goToCheckoutButton.click();
-  }
+  // // proceed to checkout, will press the checkout button
+  // private async proceedToCheckout() {
+  //   await this.driver.wait(
+  //     until.elementLocated(By.name("proceedToRetailCheckout")),
+  //     3000
+  //   );
+  //   let goToCheckoutButton = await this.driver.findElement(
+  //     By.name("proceedToRetailCheckout")
+  //   );
+  //   await goToCheckoutButton.click();
+  // }
 
   // verifies that after proceeding to the checkout, that the correct page has been accessed.
   // at this point it checks if the signin page is accessed as the user would have to login at this point
-  private async verifyCheckoutPage() {
-    await this.driver.wait(until.urlContains("/ap/signin?_"), 3000);
-    let currentUrl = await this.driver.getCurrentUrl();
-    if (currentUrl.includes("/ap/signin?_")) {
-      console.log("Test passed: Navigated to checkout.");
-    } else {
-      console.log("Test failed: Did not navigate to checkout.");
-    }
-  }
+  // private async verifyCheckoutPage() {
+  //   await this.driver.wait(until.urlContains("/ap/signin?_"), 3000);
+  //   let currentUrl = await this.driver.getCurrentUrl();
+  //   if (currentUrl.includes("/ap/signin?_")) {
+  //     console.log("Test passed: Navigated to checkout.");
+  //   } else {
+  //     console.log("Test failed: Did not navigate to checkout.");
+  //   }
+  // }
 }
 //could add extra function that logs in. could add some credentials to a .env to load.
